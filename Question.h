@@ -11,9 +11,9 @@ public:
     string questionText;
     string correctAnswer;
 
-    Question(string question,string Answer){
-        questionText = question;
-        correctAnswer = Answer;
+    Question(string questionText,string correctAnswer){
+        this->questionText = questionText;
+        this->correctAnswer = correctAnswer;
     }
 
     void askQuestion() {
