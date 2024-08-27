@@ -11,9 +11,9 @@ public:
     string name;
     int score;
 
-    Player(string playerName) {
-        name = playerName;
-        score = 0;
+    Player(string name) {
+        this->name = name;
+        this->score = 0;
     }
 
     void addPoints(int points) {

@@ -11,7 +11,6 @@ class Recommendations{
 
     private:
     Recommendations(){
-
     }
 
 
