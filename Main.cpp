@@ -17,8 +17,9 @@ int main() {
 
     cout << "Welcome to Moviemania, " << name << "!" << endl;
 
-    Watchlist userWatchlist;
-    Recommendations movieRecommendations;
+    Watchlist* userWatchlist = new Watchlist;
+    Recommendations* movieRecommendations = new Recommendations;
+    Player* player = nullptr;
 
     do {
         cout << "\n--- Main Menu ---" << endl;
@@ -37,7 +38,10 @@ int main() {
                 break;
 
             case 2: {
-                Player player(name);
+                if (player) {
+                    delete player;  
+                }
+                player = new Player(name);
                 vector<Question> quizQuestions;
 
                 quizQuestions.push_back(Question("Who directed 'Inception'?", "Christopher Nolan"));
@@ -54,19 +58,19 @@ int main() {
 
                     if (q.checkAnswer(userAnswer)) {
                         cout << "Correct!" << endl;
-                        player.addPoints(10);
+                        player->addPoints(10);
                     } else {
                         cout << "Incorrect. The correct answer was: " << q.correctAnswer << endl;
                     }
                 }
 
-                cout << "Quiz Over! Your final score is: " << player.getScore() << endl;
-                player.giveFeedback(); 
+                cout << "Quiz Over! Your final score is: " << player->getScore() << endl;
+                player->giveFeedback(); 
                 break;
             }
 
             case 3:
-                movieRecommendations.showRecommendations();
+                movieRecommendations->showRecommendations();
                 break;
 
             case 4: {
@@ -83,14 +87,14 @@ int main() {
                     string movieToAdd;
                     cout << "Enter the name of the movie to add: ";
                     getline(cin, movieToAdd);
-                    userWatchlist.addMovie(movieToAdd);
+                    userWatchlist->addMovie(movieToAdd);
                 } else if (watchlistChoice == 2) {
-                    userWatchlist.viewWatchlist();
+                    userWatchlist->viewWatchlist();
                 } else if (watchlistChoice == 3) {
                     string movieToRemove;
                     cout << "Enter the name of the movie to remove: ";
                     getline(cin, movieToRemove);
-                    userWatchlist.removeMovie(movieToRemove);
+                    userWatchlist->removeMovie(movieToRemove);
                 } else {
                     cout << "Invalid choice!" << endl;
                 }
@@ -99,6 +103,9 @@ int main() {
 
             case 5:
                 cout << "Exiting Moviemania. Goodbye!" << endl;
+                delete userWatchlist;
+                delete movieRecommendations;
+                if(player) {delete player;}
                 break;
 
             default:

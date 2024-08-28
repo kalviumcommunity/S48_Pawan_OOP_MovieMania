@@ -14,7 +14,6 @@ class Recommendations{
 
     public:
         Recommendations() {
-        // Populate some sample genres and movies
         genres = {"Action", "Comedy", "Drama", "Horror", "Sci-Fi"};
         moviesByGenre = {
             {"Action", {"Mad Max: Fury Road", "John Wick", "Gladiator"}},
