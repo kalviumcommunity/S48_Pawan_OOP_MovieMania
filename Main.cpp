@@ -27,8 +27,10 @@ int main() {
         cout << "2. Play Quiz Game" << endl;
         cout << "3. Get Movie Recommendation" << endl;
         cout << "4. Manage Watchlist" << endl;
-        cout << "5. Exit" << endl;
-        cout << "Please enter your choice (1, 2, 3, 4 or 5): ";
+        cout << "5. View High Score" << endl;
+        cout << "6. View Total Players" << endl;
+        cout << "7. Exit" << endl;
+        cout << "Please enter your choice (1, 2, 3, 4, 5, 6 or 7): ";
         cin >> choice;
 
         switch (choice) {
@@ -100,8 +102,16 @@ int main() {
                 }
                 break;
             }
-
+        
             case 5:
+                cout << "Current high score across all games: " << Player::globalHighScore << endl;
+                break;
+
+            case 6:
+                cout << "Total players who have played: " << Player::totalPlayers << endl;
+                break;
+
+            case 7:
                 cout << "Exiting Moviemania. Goodbye!" << endl;
                 delete userWatchlist;
                 delete movieRecommendations;
@@ -112,7 +122,7 @@ int main() {
                 cout << "Invalid choice! Please enter a valid option." << endl;
         }
 
-    } while (choice != 5);
+    } while (choice != 7);
 
     return 0;
 }

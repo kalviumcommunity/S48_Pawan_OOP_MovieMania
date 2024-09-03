@@ -1,11 +1,19 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
 class Player {
 public:
     string name;
     int score;
 
+    static int globalHighScore;
+    static int totalPlayers;
+
     Player(string n) {
         this->name = n;
         this->score = 0;
+        totalPlayers++;
     }
 
     void addPoints(int points) {
@@ -24,5 +32,13 @@ public:
         } else {
             cout << "It looks like you need to brush up on your movie knowledge, " << name << "!" << endl;
         }
+
+        if (score > globalHighScore) {
+            globalHighScore = score;
+            cout << "Congratulations! You set a new high score!" << endl;
+        }
     }
 };
+
+int Player::globalHighScore = 0;
+int Player::totalPlayers = 0;
