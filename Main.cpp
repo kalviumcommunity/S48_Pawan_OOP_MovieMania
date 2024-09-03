@@ -3,13 +3,40 @@
 #include <cmath>
 #include <algorithm>
 #include <iomanip>
+#include <fstream>
 #include "Question.h"
 #include "Player.h"
 #include "Watchlist.h"
 #include "Recommendations.h"
 using namespace std;
 
+void loadGameData(int& totalPlayers, int& globalHighScore) {
+    ifstream file("game_data.txt");
+    if (file.is_open()) {
+        file >> totalPlayers;
+        file >> globalHighScore;
+        file.close();
+    } else {
+        totalPlayers = 0;
+        globalHighScore = 0;
+    }
+}
+
+void saveGameData(int totalPlayers, int globalHighScore) {
+    ofstream file("game_data.txt");
+    if (file.is_open()) {
+        file << totalPlayers << endl;
+        file << globalHighScore << endl;
+        file.close();
+    } else {
+        cerr << "Error: Unable to save game data!" << endl;
+    }
+}
+
 int main() {
+
+    loadGameData(Player::totalPlayers, Player::globalHighScore);
+
     int choice;
     string name;
     cout << "Enter your name: ";
@@ -32,7 +59,7 @@ int main() {
         cout << "7. Exit" << endl;
         cout << "Please enter your choice (1, 2, 3, 4, 5, 6 or 7): ";
         cin >> choice;
-
+        cin.ignore();
         switch (choice) {
             case 1:
                 cout << "Here's a fun movie fact for you!" << endl;
@@ -49,20 +76,20 @@ int main() {
                 quizQuestions.push_back(Question("Who directed 'Inception'?", "Christopher Nolan"));
                 quizQuestions.push_back(Question("Which movie won the Oscar for Best Picture in 2020?", "Parasite"));
                 quizQuestions.push_back(Question("Who played Iron Man in the Marvel Cinematic Universe?", "Robert Downey Jr."));
+                quizQuestions.push_back(Question("Complete this Movie title, starring Morgan freeman and Tim robbins:  Shawshank ___________","Redemption"));
+                quizQuestions.push_back(Question("What is the name of the famous movie character who says 'Why so serious'?","Joker"));
                 // more questions to be added. Questions will be randomized.
 
                 for (Question q : quizQuestions) {
                     q.askQuestion();
                     string userAnswer;
-                    cout << "Your answer: ";
-                    cin.ignore();
+                    cout << "Your answer: "<<endl;
                     getline(cin, userAnswer);
-
                     if (q.checkAnswer(userAnswer)) {
                         cout << "Correct!" << endl;
                         player->addPoints(10);
                     } else {
-                        cout << "Incorrect. The correct answer was: " << q.correctAnswer << endl;
+                        cout << "Incorrect. The correct answer was: " << q.correctAnswer << "youentered"<<userAnswer<<endl;
                     }
                 }
 
@@ -123,6 +150,8 @@ int main() {
         }
 
     } while (choice != 7);
+
+    saveGameData(Player::totalPlayers, Player::globalHighScore);
 
     return 0;
 }
