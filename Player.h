@@ -39,6 +39,15 @@ public:
             cout << "Congratulations! You set a new high score!" << endl;
         }
     }
+
+    static int getTotalPlayers() {
+        return totalPlayers;
+    }
+
+    static int getGlobalHighScore() {
+        return globalHighScore;
+    }
+    
 };
 
 int Player::globalHighScore = 0;
