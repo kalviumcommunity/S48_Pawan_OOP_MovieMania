@@ -131,11 +131,11 @@ int main() {
             }
         
             case 5:
-                cout << "Current high score across all games: " << Player::globalHighScore << endl;
+                cout << "Current high score across all games: " << Player::getGlobalHighScore() << endl;
                 break;
 
             case 6:
-                cout << "Total players who have played: " << Player::totalPlayers << endl;
+                cout << "Total players who have played: " << Player::getTotalPlayers() << endl;
                 break;
 
             case 7:
