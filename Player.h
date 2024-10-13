@@ -4,11 +4,12 @@
 using namespace std;
 
 class Player {
-public:
+
+private:
     string name;
-    int score;
+    int score;  
 
-
+public:
     static int globalHighScore;
     static int totalPlayers;
 

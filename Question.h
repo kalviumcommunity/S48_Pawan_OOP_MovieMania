@@ -7,10 +7,11 @@
 using namespace std;
 
 class Question {
-public:
+private:
     string questionText;
-    string correctAnswer;
+    string correctAnswer; 
 
+public:
     Question(string question, string answer) {
         setQuestionText(question);
         setCorrectAnswer(answer);
