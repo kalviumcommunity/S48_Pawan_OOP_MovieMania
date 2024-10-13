@@ -8,21 +8,34 @@ public:
     string name;
     int score;
 
+
     static int globalHighScore;
     static int totalPlayers;
 
     Player(string n) {
-        this->name = n;
-        this->score = 0;
+        setName(n);
+        setScore(0);
         totalPlayers++;
+    }
+
+    string getName()  {
+        return name;
+    }
+
+    void setName(string n) {
+        name = n;
+    }
+
+    int getScore()  {
+        return score;
+    }
+
+    void setScore(int s) {
+        score = s;
     }
 
     void addPoints(int points) {
         score += points;
-    }
-
-    int getScore() {
-        return score;
     }
 
     void giveFeedback() {
