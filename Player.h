@@ -13,10 +13,20 @@ public:
     static int globalHighScore;
     static int totalPlayers;
 
+    Player() {
+        name = "Unknown";
+        score = 0;
+        totalPlayers++;
+    }
+
     Player(string n) {
         setName(n);
         setScore(0);
         totalPlayers++;
+    }
+
+    ~Player() {
+        cout << "Player " << name << " is being deleted." << endl;
     }
 
     string getName()  {
