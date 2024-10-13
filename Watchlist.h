@@ -9,7 +9,18 @@ private:
     vector<string> watchlist; 
 
 public:
-    Watchlist() {}
+    Watchlist() {
+        cout << "Watchlist created!" << endl;
+    }
+
+    Watchlist(vector<string> initialList) {
+        watchlist = initialList;
+        cout << "Watchlist initialized with movies!" << endl;
+    }
+
+    ~Watchlist() {
+        cout << "Watchlist destroyed!" << endl;
+    }
 
     void addMovie(const string &movie) {
         watchlist.push_back(movie);
