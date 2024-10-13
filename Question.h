@@ -11,15 +11,25 @@ public:
     string questionText;
     string correctAnswer;
 
-    Question(string question,string Answer){
-        this->questionText = question;
-        this->correctAnswer = Answer;
+    Question(string question, string answer) {
+        setQuestionText(question);
+        setCorrectAnswer(answer);
     }
-
+    string getQuestionText(){
+        return questionText;
+    }
+    void setQuestionText(string question) {
+        questionText = question;
+    }
+    string getCorrectAnswer() {
+        return correctAnswer;
+    }
+    void setCorrectAnswer(string answer) {
+        correctAnswer = answer;
+    }
     void askQuestion() {
         cout << questionText << endl;
     }
-
     bool checkAnswer(string userAnswer) {
         return userAnswer == correctAnswer;
     }
