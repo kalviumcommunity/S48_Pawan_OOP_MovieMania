@@ -8,6 +8,9 @@
 #include "Player.h"
 #include "Watchlist.h"
 #include "Recommendations.h"
+#include "MCQ.h"
+#include "FillInTheBlank.h"
+#include "TrueOrFalse.h"
 using namespace std;
 
 void loadGameData(int& totalPlayers, int& globalHighScore) {
@@ -71,21 +74,21 @@ int main() {
                     delete player;  
                 }
                 player = new Player(name);
-                vector<Question> quizQuestions;
 
-                quizQuestions.push_back(Question("Who directed 'Inception'?", "Christopher Nolan"));
-                quizQuestions.push_back(Question("Which movie won the Oscar for Best Picture in 2020?", "Parasite"));
-                quizQuestions.push_back(Question("Who played Iron Man in the Marvel Cinematic Universe?", "Robert Downey Jr."));
-                quizQuestions.push_back(Question("Complete this Movie title, starring Morgan freeman and Tim robbins:  Shawshank ___________","Redemption"));
-                quizQuestions.push_back(Question("What is the name of the famous movie character who says 'Why so serious'?","Joker"));
+                vector<Question*> quizQuestions;
+    
+                quizQuestions.push_back(new MCQ("Who directed 'Inception'?", {"Steven Spielberg", "Christopher Nolan", "Quentin Tarantino"}, "Christopher Nolan"));
+                quizQuestions.push_back(new FillInTheBlank("Complete this movie title: 'The Shawshank _________'", "Redemption"));
+                quizQuestions.push_back(new TrueOrFalse("Is 'The Godfather' a movie directed by Francis Ford Coppola?", true));
+
                 // more questions to be added. Questions will be randomized.
 
-                for (Question q : quizQuestions) {
-                    q.askQuestion();
+                for (Question* q : quizQuestions) {
+                    q->askQuestion();
                     string userAnswer;
                     cout << "Your answer: "<<endl;
                     getline(cin, userAnswer);
-                    if (q.checkAnswer(userAnswer)) {
+                    if (q->checkAnswer(userAnswer)) {
                         cout << "Correct!" << endl;
                         player->addPoints(10);
                     } else {

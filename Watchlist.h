@@ -1,28 +1,17 @@
-#include <iostream>
-#include <string>
+#include "MovieFeature.h"
 #include <vector>
 #include <algorithm>
-using namespace std;
 
-class Watchlist {
+class Watchlist : public MovieFeature {
 private:
-    vector<string> watchlist; 
+    vector<string> watchlist;
 
 public:
-    Watchlist() {
+    Watchlist() : MovieFeature("User's personalized watchlist", "Variety") {
         cout << "Watchlist created!" << endl;
     }
 
-    Watchlist(vector<string> initialList) {
-        watchlist = initialList;
-        cout << "Watchlist initialized with movies!" << endl;
-    }
-
-    ~Watchlist() {
-        cout << "Watchlist destroyed!" << endl;
-    }
-
-    void addMovie(const string &movie) {
+    void addMovie(string movie) {
         watchlist.push_back(movie);
         cout << "Movie added to watchlist: " << movie << endl;
     }
@@ -32,13 +21,13 @@ public:
             cout << "Your watchlist is empty." << endl;
         } else {
             cout << "Your watchlist:" << endl;
-            for (const auto &movie : watchlist) {
+            for (auto movie : watchlist) {
                 cout << "- " << movie << endl;
             }
         }
     }
 
-    void removeMovie(const string &movie) {
+    void removeMovie(string movie) {
         auto it = find(watchlist.begin(), watchlist.end(), movie);
         if (it != watchlist.end()) {
             watchlist.erase(it);
@@ -48,4 +37,3 @@ public:
         }
     }
 };
-
