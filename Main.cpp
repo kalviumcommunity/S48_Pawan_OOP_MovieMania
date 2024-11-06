@@ -105,24 +105,38 @@ int main() {
                 movieRecommendations->showRecommendations();
                 break;
 
-            case 4: {
+           case 4: {
                 int watchlistChoice;
                 cout << "\n--- Watchlist Menu ---" << endl;
-                cout << "1. Add Movie to Watchlist" << endl;
-                cout << "2. View Watchlist" << endl;
-                cout << "3. Remove Movie from Watchlist" << endl;
+                cout << "1. Add Single Movie to Watchlist" << endl;
+                cout << "2. Add Multiple Movies to Watchlist" << endl;
+                cout << "3. View Watchlist" << endl;
+                cout << "4. Remove Movie from Watchlist" << endl;
                 cout << "Enter your choice: ";
                 cin >> watchlistChoice;
-                cin.ignore(); 
+                cin.ignore();
 
                 if (watchlistChoice == 1) {
                     string movieToAdd;
                     cout << "Enter the name of the movie to add: ";
                     getline(cin, movieToAdd);
                     userWatchlist->addMovie(movieToAdd);
+
                 } else if (watchlistChoice == 2) {
-                    userWatchlist->viewWatchlist();
+                    vector<string> moviesToAdd;
+                    string movie;
+                    cout << "Enter movie names (type 'done' to finish): ";
+                    while (true) {
+                        getline(cin, movie);
+                        if (movie == "done") break;
+                        moviesToAdd.push_back(movie);
+                    }
+                    userWatchlist->addMovie(moviesToAdd);
+
                 } else if (watchlistChoice == 3) {
+                    userWatchlist->viewWatchlist();
+
+                } else if (watchlistChoice == 4) {
                     string movieToRemove;
                     cout << "Enter the name of the movie to remove: ";
                     getline(cin, movieToRemove);
@@ -132,7 +146,7 @@ int main() {
                 }
                 break;
             }
-        
+
             case 5:
                 cout << "Current high score across all games: " << Player::getGlobalHighScore() << endl;
                 break;
