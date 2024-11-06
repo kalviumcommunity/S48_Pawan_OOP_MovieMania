@@ -11,6 +11,14 @@ public:
         cout << "Watchlist created!" << endl;
     }
 
+
+    void addMovie(vector<string> movies) {
+        for (auto& movie : movies) {
+            watchlist.push_back(movie);
+            cout << "Movie added to watchlist: " << movie << endl;
+        }
+    }
+
     void addMovie(string movie) {
         watchlist.push_back(movie);
         cout << "Movie added to watchlist: " << movie << endl;
