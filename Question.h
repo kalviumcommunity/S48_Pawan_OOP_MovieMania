@@ -7,33 +7,17 @@
 using namespace std;
 
 class Question {
-private:
+protected:
     string questionText;
-    string correctAnswer; 
 
 public:
-    Question(string question, string answer) {
-        setQuestionText(question);
-        setCorrectAnswer(answer);
-    }
-    string getQuestionText(){
-        return questionText;
-    }
-    void setQuestionText(string question) {
-        questionText = question;
-    }
-    string getCorrectAnswer() {
-        return correctAnswer;
-    }
-    void setCorrectAnswer(string answer) {
-        correctAnswer = answer;
-    }
-    void askQuestion() {
+    Question(string text) : questionText(text) {}
+
+    virtual void askQuestion() const {
         cout << questionText << endl;
     }
-    bool checkAnswer(string userAnswer) {
-        return userAnswer == correctAnswer;
-    }
+
+    virtual bool checkAnswer(string userAnswer) const = 0;
 };
 
 
