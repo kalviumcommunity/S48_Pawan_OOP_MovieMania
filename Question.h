@@ -1,18 +1,39 @@
 #include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <iomanip>
 #include <string>
-#include <vector>
+
 using namespace std;
 
 class Question {
-protected:
+private:
     string questionText;
+    string correctAnswer; 
 
 public:
-    Question(const string& text) : questionText(text) {}
-
-    virtual void askQuestion() const {
+    Question(string question, string answer) {
+        setQuestionText(question);
+        setCorrectAnswer(answer);
+    }
+    string getQuestionText(){
+        return questionText;
+    }
+    void setQuestionText(string question) {
+        questionText = question;
+    }
+    string getCorrectAnswer() {
+        return correctAnswer;
+    }
+    void setCorrectAnswer(string answer) {
+        correctAnswer = answer;
+    }
+    void askQuestion() {
         cout << questionText << endl;
     }
-
-    virtual bool checkAnswer(const string& userAnswer) const = 0; // pure virtual function
+    bool checkAnswer(string userAnswer) {
+        return userAnswer == correctAnswer;
+    }
 };
+
+
