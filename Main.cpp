@@ -77,9 +77,26 @@ int main() {
                 break;
             }
 
-            case 3:
+            case 3: {
+                int recType;
+                cout << "\nChoose recommendation type:" << endl;
+                cout << "1. Genre-Based Recommendations" << endl;
+                cout << "2. Trending Recommendations" << endl;
+                cout << "Enter your choice: ";
+                cin >> recType;
+                cin.ignore();
+
+                if (recType == 1) {
+                    movieRecommendations->setStrategy(new GenreBasedRecommendations());
+                } else if (recType == 2) {
+                    movieRecommendations->setStrategy(new TrendingRecommendations());
+                } else {
+                    cout << "Invalid choice!" << endl;
+                }
+
                 movieRecommendations->showRecommendations();
                 break;
+            }
 
            case 4: {
                 int watchlistChoice;
