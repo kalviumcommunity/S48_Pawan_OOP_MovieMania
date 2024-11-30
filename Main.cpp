@@ -11,13 +11,34 @@
 #include "MCQ.h"
 #include "FillInTheBlank.h"
 #include "TrueOrFalse.h"
-#include "GameDataManager.h" 
 using namespace std;
 
-int main() {
-    GameDataManager gameDataManager("game_data.txt"); 
+void loadGameData(int& totalPlayers, int& globalHighScore) {
+    ifstream file("game_data.txt");
+    if (file.is_open()) {
+        file >> totalPlayers;
+        file >> globalHighScore;
+        file.close();
+    } else {
+        totalPlayers = 0;
+        globalHighScore = 0;
+    }
+}
 
-    gameDataManager.loadGameData(Player::totalPlayers, Player::globalHighScore);
+void saveGameData(int totalPlayers, int globalHighScore) {
+    ofstream file("game_data.txt");
+    if (file.is_open()) {
+        file << totalPlayers << endl;
+        file << globalHighScore << endl;
+        file.close();
+    } else {
+        cerr << "Error: Unable to save game data!" << endl;
+    }
+}
+
+int main() {
+
+    loadGameData(Player::totalPlayers, Player::globalHighScore);
 
     int choice;
     string name;
@@ -45,6 +66,7 @@ int main() {
         switch (choice) {
             case 1:
                 cout << "Here's a fun movie fact for you!" << endl;
+                //  functionality for random trivia here, will be added soon.
                 break;
 
             case 2: {
@@ -54,26 +76,28 @@ int main() {
                 player = new Player(name);
 
                 vector<Question*> quizQuestions;
-
+    
                 quizQuestions.push_back(new MCQ("Who directed 'Inception'?", {"Steven Spielberg", "Christopher Nolan", "Quentin Tarantino"}, "Christopher Nolan"));
                 quizQuestions.push_back(new FillInTheBlank("Complete this movie title: 'The Shawshank _________'", "Redemption"));
                 quizQuestions.push_back(new TrueOrFalse("Is 'The Godfather' a movie directed by Francis Ford Coppola?", true));
 
+                // more questions to be added. Questions will be randomized.
+
                 for (Question* q : quizQuestions) {
                     q->askQuestion();
                     string userAnswer;
-                    cout << "Your answer: ";
+                    cout << "Your answer: "<<endl;
                     getline(cin, userAnswer);
                     if (q->checkAnswer(userAnswer)) {
                         cout << "Correct!" << endl;
                         player->addPoints(10);
                     } else {
-                        cout << "Incorrect. The correct answer was: " << q->getCorrectAnswer() << endl;
+                        cout << "Incorrect. The correct answer was: " << q.correctAnswer << "youentered"<<userAnswer<<endl;
                     }
                 }
 
                 cout << "Quiz Over! Your final score is: " << player->getScore() << endl;
-                player->giveFeedback();
+                player->giveFeedback(); 
                 break;
             }
 
@@ -135,7 +159,7 @@ int main() {
                 cout << "Exiting Moviemania. Goodbye!" << endl;
                 delete userWatchlist;
                 delete movieRecommendations;
-                if (player) { delete player; }
+                if(player) {delete player;}
                 break;
 
             default:
@@ -144,7 +168,7 @@ int main() {
 
     } while (choice != 7);
 
-    gameDataManager.saveGameData(Player::totalPlayers, Player::globalHighScore);
+    saveGameData(Player::totalPlayers, Player::globalHighScore);
 
     return 0;
 }
