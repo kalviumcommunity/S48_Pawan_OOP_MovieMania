@@ -9,11 +9,17 @@ public:
         : Question(text), correctAnswer(answer) {}
 
     void askQuestion() const override {
-        cout << questionText << " (true/false)" << endl;
+        cout << text << " (True/False)" << endl;
     }
 
     bool checkAnswer(const string& userAnswer) const override {
-        string answer = (correctAnswer ? "true" : "false");
-        return userAnswer == answer;
+        string normalizedAnswer = userAnswer;
+        transform(normalizedAnswer.begin(), normalizedAnswer.end(), normalizedAnswer.begin(), ::tolower);
+        return (normalizedAnswer == "true" && correctAnswer) || 
+               (normalizedAnswer == "false" && !correctAnswer);
+    }
+
+    string getCorrectAnswer() const override {
+        return correctAnswer ? "True" : "False";
     }
 };
