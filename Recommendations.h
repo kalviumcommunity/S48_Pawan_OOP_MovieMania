@@ -4,48 +4,31 @@
 #include <algorithm>
 #include <vector>
 #include<map>
+#include "RecommendationStrategy.h"
 using namespace std;
 
-class Recommendations{
-    private:
-        vector<string> genres;
-        map<string, vector<string>> moviesByGenre;
+class Recommendations {
+private:
+    RecommendationStrategy* strategy;
 
+public:
+    Recommendations(RecommendationStrategy* strategy = nullptr) 
+        : strategy(strategy) {}
 
-    public:
-        Recommendations() {
-        genres = {"Action", "Comedy", "Drama", "Horror", "Sci-Fi"};
-        moviesByGenre = {
-            {"Action", {"Mad Max: Fury Road", "John Wick", "Gladiator"}},
-            {"Comedy", {"Superbad", "The Hangover", "Step Brothers"}},
-            {"Drama", {"The Godfather", "Forrest Gump", "The Shawshank Redemption"}},
-            {"Horror", {"The Exorcist", "Get Out", "A Nightmare on Elm Street"}},
-            {"Sci-Fi", {"Inception", "The Matrix", "Interstellar"}}
-        };
-        }
+    void setStrategy(RecommendationStrategy* newStrategy) {
+        if (strategy) delete strategy;
+        strategy = newStrategy;
+    }
 
-        void showRecommendations() {
-        cout << "Available genres: ";
-        for (const auto& genre : genres) {
-            cout << genre << " ";
-        }
-        cout << endl;
-
-        string chosenGenre;
-        cout << "Enter a genre to get recommendations: ";
-        cin.ignore();
-        getline(cin, chosenGenre);
-
-        auto it = moviesByGenre.find(chosenGenre);
-        if (it != moviesByGenre.end()) {
-            cout << "Movies recommended for " << chosenGenre << " genre:" << endl;
-            for (const auto& movie : it->second) {
-                cout << "- " << movie << endl;
-            }
+    void showRecommendations() const {
+        if (strategy) {
+            strategy->showRecommendations();
         } else {
-            cout << "Sorry, no recommendations available for the chosen genre." << endl;
+            cout << "No recommendation strategy set!" << endl;
         }
     }
 
-
+    ~Recommendations() {
+        if (strategy) delete strategy;
+    }
 };
