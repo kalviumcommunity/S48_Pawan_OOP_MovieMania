@@ -8,16 +8,12 @@ using namespace std;
 
 class Question {
 protected:
-    string questionText;
+    string text;
 
 public:
-    Question(string text) : questionText(text) {}
-
-    virtual void askQuestion() const {
-        cout << questionText << endl;
-    }
-
-    virtual bool checkAnswer(string userAnswer) const = 0;
+    Question(const string& questionText) : text(questionText) {}
+    virtual void askQuestion() const = 0;
+    virtual bool checkAnswer(const string& userAnswer) const = 0;
+    virtual string getCorrectAnswer() const = 0;
+    virtual ~Question() = default;
 };
-
-

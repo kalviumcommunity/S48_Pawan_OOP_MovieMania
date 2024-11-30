@@ -54,10 +54,9 @@ int main() {
                 player = new Player(name);
 
                 vector<Question*> quizQuestions;
-
-                quizQuestions.push_back(new MCQ("Who directed 'Inception'?", {"Steven Spielberg", "Christopher Nolan", "Quentin Tarantino"}, "Christopher Nolan"));
-                quizQuestions.push_back(new FillInTheBlank("Complete this movie title: 'The Shawshank _________'", "Redemption"));
-                quizQuestions.push_back(new TrueOrFalse("Is 'The Godfather' a movie directed by Francis Ford Coppola?", true));
+                quizQuestions.push_back(new MCQ("Who directed 'Inception'?", {"Spielberg", "Nolan", "Tarantino"}, "Nolan"));
+                quizQuestions.push_back(new FillInTheBlank("Complete this title: 'The Shawshank _________'", "Redemption"));
+                quizQuestions.push_back(new TrueOrFalse("Is 'Titanic' directed by James Cameron?", true));
 
                 for (Question* q : quizQuestions) {
                     q->askQuestion();
@@ -66,9 +65,8 @@ int main() {
                     getline(cin, userAnswer);
                     if (q->checkAnswer(userAnswer)) {
                         cout << "Correct!" << endl;
-                        player->addPoints(10);
                     } else {
-                        cout << "Incorrect. The correct answer was: " << q->getCorrectAnswer() << endl;
+                        cout << "Wrong! The correct answer was: " << q->getCorrectAnswer() << endl;
                     }
                 }
 
